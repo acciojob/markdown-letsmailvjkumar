@@ -15,27 +15,26 @@ const App = () => {
     }, 1000); // Simulate loading for 1 second
   }, [markdown]);
 
-  // Function to convert Markdown to HTML
-  const convertToHTML = (markdownText) => {
+  // Function to convert Markdown to React components
+  const convertToReact = (markdownText) => {
     return markdownText
       .split('\n')
       .map((line, index) => {
         // Check if the line starts with '#' and remove it
-        if (line.startsWith('#')) {
-          return `<h1 key=${index}>${line.substring(1)}</h1>`;
-        } else if (line.startsWith('# ')) {
-          return `<h1 key=${index}>${line.substring(2)}</h1>`;
+        if (line.startsWith('# ')) {
+          return <h1 key={index}>{line.substring(2)}</h1>;
         } else if (line.startsWith('## ')) {
-          return `<h1 key=${index}>${line.substring(3)}</h1>`;
+          return <h2 key={index}>{line.substring(3)}</h2>;
+        } else if (line.startsWith('### ')) {
+          return <h3 key={index}>{line.substring(4)}</h3>;
         } else {
-          return `<h1 key=${index}>${line}</h1>`;
+          return <p key={index}>{line}</p>;
         }
-      })
-      .join('');
+      });
   };
 
-  // Parse Markdown to HTML using the custom function
-  const parsedMarkdown = convertToHTML(markdown);
+  // Parse Markdown to React components using the custom function
+  const parsedMarkdown = convertToReact(markdown);
 
   return (
     <div className='app'>
@@ -50,7 +49,7 @@ const App = () => {
         {isLoading ? (
           <div className='loading'>Loading...</div>
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: parsedMarkdown }}></div>
+          <div>{parsedMarkdown}</div>
         )}
       </div>
     </div>
