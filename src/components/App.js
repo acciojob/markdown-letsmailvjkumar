@@ -22,13 +22,13 @@ const App = () => {
       .map((line, index) => {
         // Check if the line starts with '#' and remove it
         if (line.startsWith('#')) {
-          return `<h3 key=${index}>${line.substring(1)}</h3>`;
+          return `<h1 key=${index}>${line.substring(1)}</h1>`;
         } else if (line.startsWith('# ')) {
-          return `<h3 key=${index}>${line.substring(2)}</h3>`;
+          return `<h1 key=${index}>${line.substring(2)}</h1>`;
         } else if (line.startsWith('## ')) {
-          return `<h3 key=${index}>${line.substring(3)}</h3>`;
+          return `<h1 key=${index}>${line.substring(3)}</h1>`;
         } else {
-          return `<h3 key=${index}>${line}</h3>`;
+          return `<h1 key=${index}>${line}</h1>`;
         }
       })
       .join('');
